@@ -1,0 +1,22 @@
+{
+  "name": "reviewGraphQL",
+  "version": "1.0.0",
+  "description": "review GraphQl Server at node.js",
+  "main": "index.js",
+  "repository": "",
+  "author": "dl57934@pukyong.ac.kr",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-cli": "^6.26.0",
+    "graphql-yoga": "^1.16.7",
+    "nodemon": "^1.18.6"
+  },
+  "scripts": {
+    "start": "nodemon --exec babel-node index.js"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0"
+  }
+}

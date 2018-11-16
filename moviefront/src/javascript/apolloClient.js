@@ -4,4 +4,4 @@ const client = new ApolloClient({
     uri:'http://localhost:4000'
 });
 
-export default client;
+export default client ;

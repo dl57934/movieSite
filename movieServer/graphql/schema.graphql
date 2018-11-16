@@ -1,5 +1,5 @@
 type Query {
-    getMovies(rating:Int, limit:Float):[movie]!,
+    getMovies(rating:Float, limit:Int):[movie]!,
     getDetailMovie(movie_id:Int):movie!,
     getSuggestionMovie(movie_id:Int):[movie]!
 }

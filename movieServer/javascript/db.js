@@ -37,21 +37,22 @@ export const getMovieDetail = async ({ movie_id }) => {
             movie_id
         }
     })
-    .catch(err => console.log(err));
+        .catch(err => console.log(err));
 
     return movie;
 }
 
-export const getMoviesuggestion = async ({movie_id})=>{
-   const {data:{
-       data:{
-           movies
-       }
-   }} = await axios(MOVIE_SUGGESTION_URL, {
-        params:{
-            movie_id
-        }
-    }).catch(err => console.log(err));
+export const getMoviesuggestion = async ({ movie_id }) => {
+    const {
+        data: {
+            data: {
+                movies
+            }
+        } } = await axios(MOVIE_SUGGESTION_URL, {
+            params: {
+                movie_id
+            }
+        }).catch(err => console.log(err));
 
     return movies;
 }

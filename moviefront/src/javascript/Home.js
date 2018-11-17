@@ -4,31 +4,32 @@ import { HOME_PAGE } from './quries';
 import Movie from './Movie';
 import styled from 'styled-components';
 
-
 const Container = styled.div`
     display:grid;
     grid-template-columns:repeat(3, 0.7fr);
-    flex:wrap;
+    margin:0 20px;
     justify-items:center;
 `;
 
+const Home = () => {
+    return (
+        <Container >
+            <Query query={HOME_PAGE}>
+                {({ error, data, loading }) => {
+                    if (error) return "error";
+                    if (loading) return "loading"
+                    return data.getMovies.map(movie =>
+                        <Movie
+                            key = {movie.id}
+                            title={movie.title}
+                            poster={movie.medium_cover_image}
+                            id={movie.id}
+                            rating={movie.rating}
+                        />);
+                }}
+            </Query>
+        </Container>
+    )
+};
 
-const Home = () => (
-    <Container>
-        <Query query={HOME_PAGE}>
-            {({ error, data, loading }) => {
-                if (error) return <h1>Error !!</h1>
-                if (loading) return <h2>loading</h2>
-                return data.getMovies.map(movie =>
-                    <Movie
-                        key={movie.id}
-                        id={movie.id}
-                        poster={movie.medium_cover_image}
-                        rating={movie.rating}
-                        title={movie.title}
-                    />);
-            }}
-        </Query>
-    </Container>
-)
 export default Home;

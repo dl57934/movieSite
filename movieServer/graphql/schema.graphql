@@ -10,9 +10,15 @@ type movie{
     rating:Float,
     medium_cover_image:String,
     description_full:String,
-    genres:[String]
+    genres:[String],
+    torrents:[torrents]
 }
 
+type torrents{
+    url:String,
+    quality:String,
+    size:String
+}
 # type Mutation{
 #     changeAge(changeAgeNum:Int!):Info!
 # }

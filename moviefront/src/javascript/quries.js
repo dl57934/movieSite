@@ -24,6 +24,11 @@ export const DETAIL_PAGE = (id)=>gql`{
     title
     rating
     medium_cover_image
+    torrents{
+      url
+      quality
+      size
+    }
     description_full
     genres
   }

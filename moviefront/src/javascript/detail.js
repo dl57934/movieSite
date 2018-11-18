@@ -23,13 +23,14 @@ const Paragraph = styled.span`
     display:block;
     font-weight:${props => (props.bold ? "500" : "400")};
     color:whitesmoke;
+    text-decoration:${props=>props.removeUnderLine?"none":""};
 `;
 
 const SuggestionName = styled.h1`
     font-size:30px;
     font-style:italic;
     margin-bottom:20px;
-    color:white
+    color:white;
 `;
 
 
@@ -62,9 +63,14 @@ const Detail = ({ match: { params: { movieId } } }) => {
                             <Image as={"img"} src={detailMovie.medium_cover_image}/>
                             <span>
                                 <Title>{detailMovie.title}</Title>
-                                <Paragraph >genres: {detailMovie.genres.map(genre => ` ${genre} `)}</Paragraph>
-                                <Paragraph bold>rating: {detailMovie.rating}</Paragraph>
-                                <Paragraph >genres: {detailMovie.description_full}</Paragraph>
+                                <Paragraph >장르 {detailMovie.genres.map(genre => ` ${genre} `)}</Paragraph>
+                                <Paragraph bold>점수: {detailMovie.rating}</Paragraph>
+                                <Paragraph >장르: {detailMovie.description_full}</Paragraph>
+                                <Paragraph >줄거리: {detailMovie.description_full}</Paragraph>
+                                {detailMovie.torrents.map(torrent=>
+                                    <Paragraph removeUnderLine as="a" href={torrent.url}>다운로드 by Torrent({torrent.size}) {torrent.quality} </Paragraph>
+                                    )}
+                                
                             </span>
                         </Second>
                         <SuggestionName>추천영화</SuggestionName>

@@ -1,29 +1,23 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { LOGIN } from "../quries";
-import { Query } from "react-apollo";
+import { LOGIN, HOME_PAGE } from "../quries";
+import { Mutation } from "react-apollo";
 
 class Login extends Component {
-  runQuery;
-  loginCheck = () => (
-    <Query query={LOGIN({ id: "hihi", password: "nihao" })}>
-      {({ data, error, loading }) => {
-        if (error) console.log(error);
-        if (loading) return "loging.....";
-        console.log(data);
-        return "complete";
-      }}
-    </Query>
-  );
   render() {
     return (
       <LoginContainer>
         <LoginTitle>Login</LoginTitle>
         <Label>email</Label>
-        <LoginInput />
+        <LoginInput id="id" />
         <Label>password</Label>
-        <LoginInput password />
-        <CustomButton onClick={this.loginCheck}>Login</CustomButton>
+        <LoginInput password id="password" />
+        <Mutation mutation={LOGIN({ id: "hihi", password: "slsl" })}>
+          {(postMutation, { data }) => {
+            console.log(data);
+            return <CustomButton onClick={postMutation}>Login</CustomButton>;
+          }}
+        </Mutation>
       </LoginContainer>
     );
   }

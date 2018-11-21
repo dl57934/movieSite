@@ -1,19 +1,17 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const HOME_PAGE = gql`
-{
-    getMovies(rating:6.0, limit:30){
-    title
-    rating
-    id
-    medium_cover_image
+  {
+    getMovies(rating: 6.0, limit: 30) {
+      title
+      rating
+      id
+      medium_cover_image
+    }
   }
-}
 `;
 
-
-
-export const DETAIL_PAGE = (id)=>gql`{
+export const DETAIL_PAGE = id => gql`{
   getSuggestionMovie(movie_id:${id}){
     title
     rating
@@ -34,3 +32,7 @@ export const DETAIL_PAGE = (id)=>gql`{
   }
 }
 `;
+
+export const LOGIN = ({ id, password }) => gql`{ 
+  login(id:${id}, password:${password})
+}`;

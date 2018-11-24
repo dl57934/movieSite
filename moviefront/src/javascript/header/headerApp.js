@@ -41,6 +41,7 @@ const LoginSignUp = styled.p`
 
 const HeaderCard = styled.div`
   margin-top: 30px;
+  margin-bottom: 50px;
 `;
 
 export default HeaderApp;

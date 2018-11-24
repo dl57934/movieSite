@@ -1,4 +1,4 @@
-export const login = ({ id, password }) => {
+export const signIn = ({ id, password }) => {
   console.log(id, password);
   return true;
 };

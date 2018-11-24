@@ -3,7 +3,7 @@ import {
   getMovieDetail,
   getMoviesuggestion
 } from "./movie/getMovieData";
-import { login } from "./login/login";
+import { signIn, signUp } from "./login/login";
 const resolvers = {
   Query: {
     getMovies: (_, { rating, limit }) => getMovieList({ rating, limit }),
@@ -11,7 +11,8 @@ const resolvers = {
     getSuggestionMovie: (_, { movie_id }) => getMoviesuggestion({ movie_id })
   },
   Mutation: {
-    login: (_, { id, password }) => login({ id, password })
+    signIn: (_, { id, password }) => signIn({ id, password }),
+    signUp: _ => signUp()
   }
 };
 

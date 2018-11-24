@@ -5,7 +5,8 @@ type Query {
 }
 
 type Mutation {
-  login(id: String, password: String): Boolean
+  signIn(id: String, password: String): Boolean
+  signUp: Boolean
 }
 
 type movie {

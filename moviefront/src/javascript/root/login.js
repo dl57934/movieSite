@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { LOGIN, HOME_PAGE } from "../quries";
+import { LOGIN } from "../quries";
 import { Mutation } from "react-apollo";
 import { sha512 } from "js-sha512";
 
@@ -27,7 +27,7 @@ class Login extends Component {
   _loginEvent = () => {
     const inputId = document.getElementById("id").value;
     const inputPassword = document.getElementById("password").value;
-    if (this._loginCheck(inputId, inputPassword)) {
+    if (this._loginCheck(inputPassword)) {
       const {
         history: { push }
       } = this.props;
@@ -42,17 +42,16 @@ class Login extends Component {
           data: { login }
         } = response;
         if (login) push("/");
-        alert("login Failed");
+        alert("잘못된 아이디나 비밀번호를 입력하였습니다.");
       });
     } else {
       alert("잘못된 아이디나 비밀번호를 입력하였습니다.");
     }
   };
 
-  _loginCheck = (id, password) => {
+  _passwordCheck = password => {
     const passwordCheck = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,20}$/;
-    console.log(sha512(password));
-
+    if (passwordCheck.test(password)) return true;
     return false;
   };
 }

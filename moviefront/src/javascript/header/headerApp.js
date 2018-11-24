@@ -21,7 +21,7 @@ class HeaderApp extends Component {
 
 const TitleName = styled.h1`
   color: white;
-  font-size: 70px;
+  font-size: 55px;
   text-decoration: none;
   :hover {
     color: gold;

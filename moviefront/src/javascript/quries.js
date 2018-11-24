@@ -33,8 +33,8 @@ export const DETAIL_PAGE = id => gql`{
 }
 `;
 
-export const LOGIN = ({ id, password }) => gql`
-  mutation {
-    login(id: ${id}, password: ${password})
+export const LOGIN = gql`
+  mutation login($id: String!, $password: String!) {
+    login(id: $id, password: $password)
   }
 `;

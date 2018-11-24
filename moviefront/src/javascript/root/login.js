@@ -2,25 +2,59 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { LOGIN, HOME_PAGE } from "../quries";
 import { Mutation } from "react-apollo";
+import { sha512 } from "js-sha512";
 
 class Login extends Component {
   render() {
     return (
       <LoginContainer>
         <LoginTitle>Login</LoginTitle>
-        <Label>email</Label>
+        <Label placeholder="email입력">email</Label>
         <LoginInput id="id" />
         <Label>password</Label>
         <LoginInput password id="password" />
-        <Mutation mutation={LOGIN({ id: "hihi", password: "slsl" })}>
-          {(postMutation, { data }) => {
-            console.log(data);
-            return <CustomButton onClick={postMutation}>Login</CustomButton>;
+        <Mutation mutation={LOGIN}>
+          {login => {
+            this.login = login;
+            return (
+              <CustomButton onClick={this._loginEvent}>Login</CustomButton>
+            );
           }}
         </Mutation>
       </LoginContainer>
     );
   }
+  _loginEvent = () => {
+    const inputId = document.getElementById("id").value;
+    const inputPassword = document.getElementById("password").value;
+    if (this._loginCheck(inputId, inputPassword)) {
+      const {
+        history: { push }
+      } = this.props;
+
+      this.login({
+        variables: {
+          id: inputId,
+          password: inputPassword
+        }
+      }).then(response => {
+        const {
+          data: { login }
+        } = response;
+        if (login) push("/");
+        alert("login Failed");
+      });
+    } else {
+      alert("잘못된 아이디나 비밀번호를 입력하였습니다.");
+    }
+  };
+
+  _loginCheck = (id, password) => {
+    const passwordCheck = /^(?=.*[a-zA-Z])((?=.*\d)|(?=.*\W)).{8,20}$/;
+    console.log(sha512(password));
+
+    return false;
+  };
 }
 
 const LoginInput = styled.input.attrs({

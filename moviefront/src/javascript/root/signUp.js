@@ -57,9 +57,9 @@ const CustomButton = styled.button`
   border-radius: 5px;
   color: #fff;
   display: block;
-  font-size: 1.6em;
+  font-size: 18px;
   font-weight: bold;
-  margin: 1em auto;
+  margin: 0 0 30px 120px;
   width: 31%;
   height: 3%;
   position: relative;
@@ -91,7 +91,7 @@ const SignUpContainer = styled.div`
 const Title = styled.h1`
   font-weight: 600;
   font-size: 50px;
-  margin-top: 40px;
+  margin-top: 30px;
   margin-bottom: 80px;
 `;
 

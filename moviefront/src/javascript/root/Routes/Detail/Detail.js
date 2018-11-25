@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Query } from "react-apollo";
-import { DETAIL_PAGE } from "../quries";
-import Movie from "./Movie";
+import { DETAIL_PAGE } from "../../quries/quries";
+import Movie from "../../Components/Movie";
 import styled from "styled-components";
 
 const Container = styled.div`

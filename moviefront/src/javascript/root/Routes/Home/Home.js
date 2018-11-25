@@ -1,7 +1,7 @@
 import React from "react";
 import { Query } from "react-apollo";
-import { HOME_PAGE } from "../quries";
-import Movie from "./Movie";
+import { HOME_PAGE } from "../../quries/quries";
+import Movie from "../../Components/Movie";
 import styled from "styled-components";
 
 const Container = styled.div`

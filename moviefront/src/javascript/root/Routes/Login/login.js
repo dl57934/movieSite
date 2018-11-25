@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { LOGIN } from "../quries";
+import { LOGIN } from "../../quries/quries";
 import { Mutation } from "react-apollo";
-import { sha512 } from "js-sha512";
 
 class Login extends Component {
   render() {

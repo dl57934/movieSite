@@ -80,7 +80,9 @@ class Home extends Component {
       })
         .then(response => response.data.addMovies)
         .then(receiveData => {
-          console.log(receiveData);
+          this.setState({
+            movies: [...receiveData]
+          });
         });
     }
   };

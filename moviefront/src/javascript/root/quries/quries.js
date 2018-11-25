@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const HOME_PAGE = gql`
-  {
-    getMovies(rating: 6.0, limit: 30) {
+  query getMovies($rating: Float!, $limit: Int!) {
+    getMovies(rating: $rating, limit: $limit) {
       title
       rating
       id

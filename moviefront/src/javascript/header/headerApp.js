@@ -20,28 +20,27 @@ class HeaderApp extends Component {
 }
 
 const TitleName = styled.h1`
-  color: white;
   font-size: 55px;
   text-decoration: none;
   :hover {
-    color: gold;
+    color: skyblue;
   }
 `;
 
 const LoginSignUp = styled.p`
-  color: white;
   text-decoration: none;
   float: right;
   margin: 20px ${props => (props.login ? "50px" : "20px")} 0 0;
   justify-items: center;
   :hover {
-    color: gold;
+    color: skyblue;
   }
 `;
 
 const HeaderCard = styled.div`
   margin-top: 30px;
   margin-bottom: 50px;
+  color: skyblue;
 `;
 
 export default HeaderApp;

@@ -22,11 +22,12 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 20px;
+  font-size: 30px;
 `;
 
 const ToPknu = styled.a`
-  margin-top: 20px;
+  margin-top: 50px;
+  font-size: 20px;
   :hover {
     color: skyblue;
   }

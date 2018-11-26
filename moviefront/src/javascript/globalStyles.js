@@ -28,10 +28,12 @@ const Rotate = keyframes`
   `;
 
 export const LoadingContainer = styled.div`
-  display: inline-block;
-  position: relative;
+  display: flex;
+  justify-items: center;
+  align-content: center;
   width: 128px;
   height: 128px;
+  margin-top: 200px;
   ${LoadingContainer} > div {
     animation: ${Rotate} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     transform-origin: 32px 32px;

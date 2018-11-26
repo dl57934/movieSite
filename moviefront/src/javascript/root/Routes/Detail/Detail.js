@@ -12,6 +12,10 @@ const Container = styled.div`
   margin: 0 20px;
 `;
 
+const CustomLoading = styled(LoadingContainer)`
+  margin-left: 500px;
+`;
+
 const Image = styled.div`
   box-shadow: 0 10px 20px 3px #c0c0c0, 0 6px 6px #c0c0c0;
   background-color: white;
@@ -64,7 +68,7 @@ const Detail = ({
         if (error) return error;
         if (loading)
           return (
-            <LoadingContainer>
+            <CustomLoading>
               <div />
               <div />
               <div />
@@ -73,7 +77,7 @@ const Detail = ({
               <div />
               <div />
               <div />
-            </LoadingContainer>
+            </CustomLoading>
           );
         const detailMovie = data.getDetailMovie;
         return (

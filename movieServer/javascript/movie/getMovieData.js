@@ -18,7 +18,7 @@ export const getMovieList = async ({ rating, limit, page }) => {
       page
     }
   }).catch(err => {
-    console.log(err);
+    return err;
   });
 
   return movies;

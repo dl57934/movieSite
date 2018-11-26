@@ -5,7 +5,7 @@ class HeaderApp extends Component {
   render() {
     return (
       <HeaderCard>
-        <TitleName as="a" href="/">
+        <TitleName as="a" href="/#/1">
           상훈상훈 무비
         </TitleName>
         <LoginSignUp as="a" href="/#/login" login>

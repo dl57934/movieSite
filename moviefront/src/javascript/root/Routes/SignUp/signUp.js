@@ -111,7 +111,7 @@ const CustomButton = styled.button`
   }
   ::before,
   ::after {
-    background: gold;
+    background: skyblue;
     content: "";
     position: absolute;
     z-index: -1;
@@ -120,13 +120,14 @@ const CustomButton = styled.button`
     color: black;
   }
   background: none;
-  border: 3px solid gold;
+  border: 3px solid skyblue;
   border-radius: 5px;
   color: #fff;
   display: block;
   font-size: 18px;
   font-weight: bold;
-  margin: 0 0 0px 0px;
+  margin-top: 30px;
+  margin-right: 32px;
   width: 20%;
   height: 10%;
   position: relative;
@@ -155,18 +156,19 @@ const Title = styled.h1`
   font-size: 50px;
   margin-top: 30px;
   margin-bottom: 80px;
+  margin-right: 20px;
 `;
 
 const Input = styled.input.attrs({
   type: props => (props.email ? "text" : "password")
 })`
   font-size: 15px;
-  margin: 15px 0;
-  width: 300px;
+  margin: 18px 0;
+  width: 22%;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 10px 12px;
   border-radius: 10px;
-  margin-right: 20px;
+  margin-right: 28px;
 `;
 
 export default signUp;

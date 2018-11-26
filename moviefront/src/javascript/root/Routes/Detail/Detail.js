@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const CustomLoading = styled(LoadingContainer)`
-  margin-left: 500px;
+  margin-left: 800px;
 `;
 
 const Image = styled.div`

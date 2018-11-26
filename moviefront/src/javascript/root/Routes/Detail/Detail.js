@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import { DETAIL_PAGE } from "../../quries/quries";
 import Movie from "../../Components/Movie";
 import styled from "styled-components";
+import { LoadingContainer } from "../../../globalStyles";
 
 const Container = styled.div`
   display: grid;
@@ -61,7 +62,19 @@ const Detail = ({
     <Query query={DETAIL_PAGE(movieId)}>
       {({ loading, data, error }) => {
         if (error) return error;
-        if (loading) return "loading";
+        if (loading)
+          return (
+            <LoadingContainer>
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+              <div />
+            </LoadingContainer>
+          );
         const detailMovie = data.getDetailMovie;
         return (
           <Fragment>

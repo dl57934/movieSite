@@ -14,7 +14,7 @@ class App extends Component {
       <ApolloProvider client={client}>
         <HashRouter>
           <main>
-            <Route exact={true} path={"/"} component={Home} />
+            <Route exact={true} path={"/:page"} component={Home} />
             <Route path={"/detail/:movieId"} component={Detail} />
             <Route path={"/login"} component={Login} />
             <Route path={"/signUp"} component={signUp} />

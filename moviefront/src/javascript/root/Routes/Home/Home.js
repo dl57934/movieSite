@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Query, Mutation } from "react-apollo";
 import { HOME_PAGE } from "../../quries/quries";
 import Movie from "../../Components/Movie";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import gql from "graphql-tag";
+import { LoadingContainer } from "../../../globalStyles";
 
 const AddMovie = gql`
-  mutation addMovies($rating: Float!, $limit: Int!) {
-    addMovies(rating: $rating, limit: $limit) {
+  mutation addMovies($rating: Float!, $limit: Int!, $page: Int!) {
+    addMovies(rating: $rating, limit: $limit, page: $page) {
       title
       rating
       id
@@ -25,33 +26,70 @@ const Container = styled.div`
 `;
 
 class Home extends Component {
-  componentDidMount() {
-    window.addEventListener("scroll", this._onScrollEvent, false);
+  constructor(props) {
+    super(props);
+    console.log(props);
+    window.onscroll = () => {
+      this._onScrollEvent();
+    };
+    this.state = {
+      moviesCheck: false
+    };
   }
 
   limit = 20;
   render() {
     return (
       <Container>
-        <Query query={HOME_PAGE} variables={{ rating: 6.0, limit: this.limit }}>
-          {({ error, data, loading }) => {
-            if (error) return "error";
-            if (loading) return "loading";
-            this.state = {
-              movies: data.getMovies
-            };
+        {this.state.moviesCheck ? (
+          this.state.movies.map(movie => (
+            <Movie
+              key={movie.id}
+              title={movie.title}
+              poster={movie.medium_cover_image}
+              id={movie.id}
+              rating={movie.rating}
+            />
+          ))
+        ) : (
+          <Query
+            query={HOME_PAGE}
+            variables={{ rating: 6.0, limit: this.limit, page: 1 }}
+          >
+            {({ error, data, loading }) => {
+              if (error) return "error";
+              if (loading)
+                return (
+                  <Fragment>
+                    <div />
+                    <LoadingContainer>
+                      <div />
+                      <div />
+                      <div />
+                      <div />
+                      <div />
+                      <div />
+                      <div />
+                      <div />
+                    </LoadingContainer>
+                  </Fragment>
+                );
+              this.state = {
+                movies: data.getMovies
+              };
 
-            return this.state.movies.map(movie => (
-              <Movie
-                key={movie.id}
-                title={movie.title}
-                poster={movie.medium_cover_image}
-                id={movie.id}
-                rating={movie.rating}
-              />
-            ));
-          }}
-        </Query>
+              return this.state.movies.map(movie => (
+                <Movie
+                  key={movie.id}
+                  title={movie.title}
+                  poster={movie.medium_cover_image}
+                  id={movie.id}
+                  rating={movie.rating}
+                />
+              ));
+            }}
+          </Query>
+        )}
         <Mutation mutation={AddMovie}>
           {addMovies => {
             this.addMovies = addMovies;
@@ -74,14 +112,14 @@ class Home extends Component {
     let clientHeight = document.documentElement.clientHeight;
     if (clientHeight + scrollTop === scrollHeight && this.limit < 50) {
       this.limit += 10;
-      let { movies } = this.state;
       this.addMovies({
-        variables: { rating: 6.0, limit: this.limit }
+        variables: { rating: 6.0, limit: this.limit, page: 1 }
       })
         .then(response => response.data.addMovies)
         .then(receiveData => {
           this.setState({
-            movies: [...receiveData]
+            movies: [...receiveData],
+            moviesCheck: true
           });
         });
     }

@@ -7,7 +7,8 @@ import signIn from "./auth/signIn";
 import signUp from "./auth/signUp";
 const resolvers = {
   Query: {
-    getMovies: (_, { rating, limit }) => getMovieList({ rating, limit }),
+    getMovies: (_, { rating, limit, page }) =>
+      getMovieList({ rating, limit, page }),
     getDetailMovie: (_, { movie_id }) => getMovieDetail({ movie_id }),
     getSuggestionMovie: (_, { movie_id }) => getMoviesuggestion({ movie_id })
   },

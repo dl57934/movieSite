@@ -1,21 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { Query, Mutation } from "react-apollo";
+import { Query } from "react-apollo";
 import { HOME_PAGE } from "../../quries/quries";
 import Movie from "../../Components/Movie";
-import styled, { keyframes } from "styled-components";
-import gql from "graphql-tag";
+import styled from "styled-components";
 import { LoadingContainer } from "../../../globalStyles";
-
-const AddMovie = gql`
-  mutation addMovies($rating: Float!, $limit: Int!, $page: Int!) {
-    addMovies(rating: $rating, limit: $limit, page: $page) {
-      title
-      rating
-      id
-      medium_cover_image
-    }
-  }
-`;
+import Footer from "./Footer";
 
 const Container = styled.div`
   display: grid;
@@ -28,7 +17,12 @@ const Container = styled.div`
 class Home extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
+    const {
+      match: {
+        params: { page }
+      }
+    } = props;
+    this.page = page;
     window.onscroll = () => {
       this._onScrollEvent();
     };
@@ -36,49 +30,16 @@ class Home extends Component {
       moviesCheck: false
     };
   }
-
+  movies = [];
   limit = 20;
   render() {
     return (
-      <Container>
-        {this.state.moviesCheck ? (
-          this.state.movies.map(movie => (
-            <Movie
-              key={movie.id}
-              title={movie.title}
-              poster={movie.medium_cover_image}
-              id={movie.id}
-              rating={movie.rating}
-            />
-          ))
-        ) : (
-          <Query
-            query={HOME_PAGE}
-            variables={{ rating: 6.0, limit: this.limit, page: 1 }}
-          >
-            {({ error, data, loading }) => {
-              if (error) return "error";
-              if (loading)
-                return (
-                  <Fragment>
-                    <div />
-                    <LoadingContainer>
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                      <div />
-                    </LoadingContainer>
-                  </Fragment>
-                );
-              this.state = {
-                movies: data.getMovies
-              };
-
-              return this.state.movies.map(movie => (
+      <Fragment>
+        <Container>
+          {this.state.moviesCheck ? (
+            this.movies
+              .slice(0, this.limit)
+              .map(movie => (
                 <Movie
                   key={movie.id}
                   title={movie.title}
@@ -86,17 +47,52 @@ class Home extends Component {
                   id={movie.id}
                   rating={movie.rating}
                 />
-              ));
-            }}
-          </Query>
-        )}
-        <Mutation mutation={AddMovie}>
-          {addMovies => {
-            this.addMovies = addMovies;
-            return null;
-          }}
-        </Mutation>
-      </Container>
+              ))
+          ) : (
+            <Query
+              query={HOME_PAGE}
+              variables={{
+                rating: 6.0,
+                limit: 50,
+                page: Number(this.page)
+              }}
+            >
+              {({ error, data, loading }) => {
+                if (error) return "error";
+                if (loading)
+                  return (
+                    <Fragment>
+                      <div />
+                      <LoadingContainer>
+                        <div />
+                        <div />
+                        <div />
+                        <div />
+                        <div />
+                        <div />
+                        <div />
+                        <div />
+                      </LoadingContainer>
+                    </Fragment>
+                  );
+                this.movies = data.getMovies;
+                return this.movies
+                  .slice(0, 20)
+                  .map(movie => (
+                    <Movie
+                      key={movie.id}
+                      title={movie.title}
+                      poster={movie.medium_cover_image}
+                      id={movie.id}
+                      rating={movie.rating}
+                    />
+                  ));
+              }}
+            </Query>
+          )}
+        </Container>
+        <Footer page={this.page} history={this.props.history} />
+      </Fragment>
     );
   }
 
@@ -112,16 +108,9 @@ class Home extends Component {
     let clientHeight = document.documentElement.clientHeight;
     if (clientHeight + scrollTop === scrollHeight && this.limit < 50) {
       this.limit += 10;
-      this.addMovies({
-        variables: { rating: 6.0, limit: this.limit, page: 1 }
-      })
-        .then(response => response.data.addMovies)
-        .then(receiveData => {
-          this.setState({
-            movies: [...receiveData],
-            moviesCheck: true
-          });
-        });
+      this.setState({
+        moviesCheck: true
+      });
     }
   };
 }

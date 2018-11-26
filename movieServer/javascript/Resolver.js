@@ -15,8 +15,7 @@ const resolvers = {
   Mutation: {
     signIn: (_, { id, password }) => signIn({ id, password }),
     signUp: (_, { id, password, name, token }) =>
-      signUp({ id, password, name, token }),
-    addMovies: (_, { rating, limit }) => getMovieList({ rating, limit })
+      signUp({ id, password, name, token })
   }
 };
 

@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle, css, keyframes } from "styled-components";
+import styled, { createGlobalStyle, keyframes } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
@@ -31,8 +31,8 @@ export const LoadingContainer = styled.div`
   display: flex;
   justify-items: center;
   align-content: center;
-  width: 128px;
-  height: 128px;
+  width: 64px;
+  height: 64px;
   margin-top: 200px;
   ${LoadingContainer} > div {
     animation: ${Rotate} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

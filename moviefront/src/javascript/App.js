@@ -7,7 +7,7 @@ import Detail from "./root/Routes/Detail";
 import Login from "./root/Routes/Login";
 import signUp from "./root/Routes/SignUp";
 import EmailCheck from "./root/Routes/EmailCheck";
-import SignUpCheck from "./root/Routes/SignUpCheck/SignUpCheck";
+import SignUpComplete from "./root/Routes/SignUpComplete";
 
 class App extends Component {
   render() {
@@ -19,8 +19,8 @@ class App extends Component {
             <Route path="/detail/:movieId" component={Detail} />
             <Route path="/login" component={Login} />
             <Route path="/signUp" component={signUp} />
-            <Route path="/emailCheck" component={EmailCheck} />
-            <Route path="/signUpCheck/:token" component={SignUpCheck} />
+            <Route path="/emailCheck/:token" component={EmailCheck} />
+            <Route path="/signUpComplete" component={SignUpComplete} />
           </Switch>
         </BrowserRouter>
       </ApolloProvider>

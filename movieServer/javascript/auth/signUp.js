@@ -1,8 +1,9 @@
 import { createTransport } from "nodemailer";
-import { UsersModel } from "../../db/models";
+import { UsersModel } from "../db/models";
 
-const signUp = ({ id, password, name, token }) => {
-  if (existEmailCheck(id)) {
+const signUp = async ({ id, password, name, token }) => {
+  console.log(token);
+  if (await existEmailCheck(id)) {
     const user = new UsersModel({
       id,
       password,
@@ -11,7 +12,6 @@ const signUp = ({ id, password, name, token }) => {
       checkLogin: false
     });
     user.save();
-    console.log("true");
     sendEmail(id, token);
     return true;
   } else {
@@ -20,17 +20,17 @@ const signUp = ({ id, password, name, token }) => {
   }
 };
 
-const existEmailCheck = id => {
+const existEmailCheck = async id => {
   let result;
-  UsersModel.find({ id: id }, (err, results) => {
+  await UsersModel.find({ id: id }, (err, results) => {
+    console.log(results);
     if (results.length > 0) {
-      console.log(results);
       result = false;
     } else {
-      console.log(results);
       result = true;
     }
   });
+  console.log(result);
   return result;
 };
 
@@ -46,7 +46,7 @@ const sendEmail = (id, token) => {
     from: "dl57934@gmail.com", // 발송 메일 주소 (위에서 작성한 gmail 계정 아이디)
     to: id, // 수신 메일 주소
     subject: "상훈상훈 무비 회원가입 인증입니다.", // 제목
-    html: `<h1>아래의 웹사이트에 접속하시면 회원가입이 완료됩니다.</h1><br/><a href=http://localhost:3000/#/emailCheck/${token}>여길 눌러주세요!!</a>`
+    html: `<h1>아래의 웹사이트에 접속하시면 회원가입이 완료됩니다.</h1><br/><a href=http://localhost:3000/emailCheck/${token}>여길 눌러주세요!!</a>`
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {

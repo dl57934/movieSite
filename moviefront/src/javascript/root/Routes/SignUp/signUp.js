@@ -35,13 +35,13 @@ class signUp extends Component {
 
   //8자리 이상 20자리 미만 최소 특수문자 한개 포함
   _emailCheck = async () => {
-    const max = 9999999999;
-    const min = 1000000000;
+    const max = 999999;
+    const min = 100000;
     const id = document.getElementById("inputId").value + "@pukyong.ac.kr";
     const password = document.getElementById("inputPw").value.toLowerCase();
     const name = document.getElementById("inputName").value;
     if (id !== "" && password !== "" && name !== "" && this._passwordCheck()) {
-      const token = Math.floor(Math.random() * (max - min) + min);
+      let token = Math.floor(Math.random() * (max - min) + min);
       const {
         data: { signUp }
       } = await this.requestSignUp({
@@ -51,7 +51,7 @@ class signUp extends Component {
         history: { push }
       } = this.props;
       console.log(`결과 ${signUp}`);
-      if (signUp) push(`/emailCheck`);
+      if (signUp) push(`/signUpComplete`);
       else alert("이미 같은 아이디의 사용자가 있습니다");
     } else alert("입력 창 또는 비밀번호가 같은지 확인해주세요");
   };

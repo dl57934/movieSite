@@ -5,5 +5,5 @@ export const UserSchema = mongoose.Schema({
   name: String,
   password: String,
   checkLogin: Boolean,
-  token: String
+  token: Number
 });

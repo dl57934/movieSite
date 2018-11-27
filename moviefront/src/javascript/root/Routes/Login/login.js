@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { LOGIN } from "../../quries/quries";
+import { LOGIN } from "./loginQuries";
 import { Mutation } from "react-apollo";
 
 class Login extends Component {

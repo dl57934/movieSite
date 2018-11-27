@@ -35,5 +35,6 @@ const Container = styled.div`
 
 const LinkInner = styled.a`
   text-decoration: none;
-  margin-right: 5px;
+  margin-right: 20px;
+  font-size: 23px;
 `;

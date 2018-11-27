@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { Query } from "react-apollo";
-import { DETAIL_PAGE } from "../../quries/quries";
+import { DETAIL_PAGE } from "./detailQuries";
 import Movie from "../../Components/Movie";
 import styled from "styled-components";
-import { LoadingContainer } from "../../../globalStyles";
+import LoadingContainer from "../../Components/Loading";
 
 const Container = styled.div`
   display: grid;
@@ -20,7 +20,7 @@ const Image = styled.div`
   box-shadow: 0 10px 20px 3px #c0c0c0, 0 6px 6px #c0c0c0;
   background-color: white;
   border-radius: 7px;
-  margin-right: 30px;
+  margin-right: 60px;
 `;
 
 const Paragraph = styled.span`
@@ -50,6 +50,7 @@ const Title = styled.h1`
 const Second = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
+  margin-left: 10%;
   margin-bottom: 50px;
 `;
 

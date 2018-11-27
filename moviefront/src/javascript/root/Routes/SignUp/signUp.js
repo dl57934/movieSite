@@ -1,38 +1,17 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import gql from "graphql-tag";
+import { SignUp } from "./signUpQueries";
 import { Mutation } from "react-apollo";
 
-const SignUp = gql`
-  mutation signUp(
-    $id: String!
-    $password: String!
-    $name: String!
-    $token: Float!
-  ) {
-    signUp(id: $id, password: $password, name: $name, token: $token)
-  }
-`;
-
 class signUp extends Component {
-  state = {
-    emailCheck: false,
-    passwordCheck: false,
-    id: ""
-  };
-  input = "";
-  back = "@pukyong.ac.kr";
   render() {
     return (
       <SignUpContainer>
         <Title>SignUp</Title>
-        <Input
-          name="id"
-          id="inputId"
-          email
-          onKeyDown={this._keyDown}
-          value={this.state.id + this.back}
-        />
+        <span>
+          <EmailInput id="inputId" email placeholder="학교이메일" />
+          @pukyong.ac.kr
+        </span>
         <WarningMessage>
           학교 이메일만 사용할 수 있습니다.
           <br /> 이메일 인증이 완료되어야 회원가입할 수 있습니다.
@@ -44,12 +23,8 @@ class signUp extends Component {
           {SignUp => {
             this.requestSignUp = SignUp;
             return (
-              <CustomButton
-                onClick={this._emailCheck}
-                name="emailCheck"
-                type="submit"
-              >
-                {this.state.emailCheck ? "이메일 확인완료" : "이메일 확인"}
+              <CustomButton onClick={this._emailCheck} type="submit">
+                회원 가입
               </CustomButton>
             );
           }}
@@ -57,36 +32,27 @@ class signUp extends Component {
       </SignUpContainer>
     );
   }
-  _keyDown = e => {
-    let keyValue = e.keyCode;
-    if (keyValue === 8) {
-      this.input = this.input.substring(0, this.input.length - 1);
-    } else if (keyValue !== 229 && keyValue !== 9) {
-      if (65 <= keyValue && keyValue <= 90) if (!e.shiftKey) keyValue += 32;
-      this.input += String.fromCharCode(keyValue);
-    }
-    this.setState({
-      [e.target.name]: this.input
-    });
-  };
 
   //8자리 이상 20자리 미만 최소 특수문자 한개 포함
-  _emailCheck = e => {
-    this.setState({
-      [e.target.name]: !this.state.emailCheck
-    });
+  _emailCheck = async () => {
     const max = 9999999999;
     const min = 1000000000;
-    const id = document.getElementById("inputId").value;
-    const password = document.getElementById("inputPw").value;
+    const id = document.getElementById("inputId").value + "@pukyong.ac.kr";
+    const password = document.getElementById("inputPw").value.toLowerCase();
     const name = document.getElementById("inputName").value;
     if (id !== "" && password !== "" && name !== "" && this._passwordCheck()) {
       const token = Math.floor(Math.random() * (max - min) + min);
-      this.requestSignUp({ variables: { id, password, name, token } });
+      const {
+        data: { signUp }
+      } = await this.requestSignUp({
+        variables: { id, password, name, token }
+      });
       const {
         history: { push }
       } = this.props;
-      push(`/emailCheck/${token}`);
+      console.log(`결과 ${signUp}`);
+      if (signUp) push(`/emailCheck`);
+      else alert("이미 같은 아이디의 사용자가 있습니다");
     } else alert("입력 창 또는 비밀번호가 같은지 확인해주세요");
   };
   _passwordCheck() {
@@ -169,6 +135,12 @@ const Input = styled.input.attrs({
   padding: 10px 12px;
   border-radius: 10px;
   margin-right: 28px;
+`;
+
+const EmailInput = styled(Input)`
+  width: 52%;
+
+  margin-right: 10px;
 `;
 
 export default signUp;

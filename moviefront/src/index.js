@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./javascript/root/App";
+import App from "./javascript/App";
 import HeaderApp from "./javascript/header/headerApp";
-import GlobalStyle from "./javascript/globalStyles";
+import GlobalStyle from "./globalStyles";
 import { Fragment } from "react";
 
 ReactDOM.render(

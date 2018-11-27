@@ -1,7 +1,40 @@
 import { createTransport } from "nodemailer";
+import { UsersModel } from "../../db/models";
 
 const signUp = ({ id, password, name, token }) => {
-  console.log(id, password, name, token);
+  if (existEmailCheck(id)) {
+    const user = new UsersModel({
+      id,
+      password,
+      name,
+      token,
+      checkLogin: false
+    });
+    user.save();
+    console.log("true");
+    sendEmail(id, token);
+    return true;
+  } else {
+    console.log("일치하는 사용자 찾음");
+    return false;
+  }
+};
+
+const existEmailCheck = id => {
+  let result;
+  UsersModel.find({ id: id }, (err, results) => {
+    if (results.length > 0) {
+      console.log(results);
+      result = false;
+    } else {
+      console.log(results);
+      result = true;
+    }
+  });
+  return result;
+};
+
+const sendEmail = (id, token) => {
   const transporter = createTransport({
     service: "gmail",
     auth: {
@@ -22,7 +55,6 @@ const signUp = ({ id, password, name, token }) => {
       console.log(info);
     }
   });
-  return true;
 };
 
 export default signUp;

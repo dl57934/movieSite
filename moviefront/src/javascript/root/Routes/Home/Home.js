@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Query } from "react-apollo";
-import { HOME_PAGE } from "../../quries/quries";
+import { HOME_PAGE } from "./homeQuries";
 import Movie from "../../Components/Movie";
 import styled from "styled-components";
-import { LoadingContainer } from "../../../globalStyles";
+import LoadingContainer from "../../Components/Loading";
 import Footer from "./Footer";
 
 const Container = styled.div`

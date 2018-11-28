@@ -7,6 +7,9 @@ export const SignUp = gql`
     $name: String!
     $token: Int!
   ) {
-    signUp(id: $id, password: $password, name: $name, token: $token)
+    signUp(id: $id, password: $password, name: $name, token: $token) {
+      message
+      result
+    }
   }
 `;

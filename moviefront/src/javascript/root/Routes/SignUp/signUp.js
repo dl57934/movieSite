@@ -51,8 +51,8 @@ class signUp extends Component {
         history: { push }
       } = this.props;
       console.log(`결과 ${signUp}`);
-      if (signUp) push(`/signUpComplete`);
-      else alert("이미 같은 아이디의 사용자가 있습니다");
+      if (signUp.result) push(`/signUpComplete`);
+      else alert(signUp.message);
     } else alert("입력 창 또는 비밀번호가 같은지 확인해주세요");
   };
   _passwordCheck() {

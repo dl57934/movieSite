@@ -2,12 +2,17 @@ type Query {
   getMovies(rating: Float, limit: Int, page: Int): [movie]!
   getDetailMovie(movie_id: Int): movie!
   getSuggestionMovie(movie_id: Int): [movie]!
-  getTokenCheck(token: Int!): Boolean!
+  getTokenCheck(token: Int!): signResult!
 }
 
 type Mutation {
-  signIn(id: String!, password: String!): Boolean
-  signUp(id: String!, password: String!, name: String!, token: Int!): Boolean
+  signIn(id: String!, password: String!): signResult!
+  signUp(
+    id: String!
+    password: String!
+    name: String!
+    token: Int!
+  ): signResult!
   addMovies(rating: Float!, limit: Int!, page: Int): [movie]!
 }
 
@@ -19,6 +24,11 @@ type movie {
   description_full: String
   genres: [String]
   torrents: [torrents]
+}
+
+type signResult {
+  message: String!
+  result: Boolean!
 }
 
 type torrents {

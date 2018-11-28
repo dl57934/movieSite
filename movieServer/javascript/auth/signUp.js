@@ -13,10 +13,9 @@ const signUp = async ({ id, password, name, token }) => {
     });
     user.save();
     sendEmail(id, token);
-    return true;
+    return { result: true, message: "상훈상훈 무비에 환영합니다." };
   } else {
-    console.log("일치하는 사용자 찾음");
-    return false;
+    return { result: false, message: "이미 존재하는 회원 정보입니다." };
   }
 };
 
@@ -30,7 +29,6 @@ const existEmailCheck = async id => {
       result = true;
     }
   });
-  console.log(result);
   return result;
 };
 

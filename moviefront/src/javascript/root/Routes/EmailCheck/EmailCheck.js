@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { EMAIL_CHECK } from "./EmailQuries";
 import { Query } from "react-apollo";
 import LoadingContainer from "../../Components/Loading";
@@ -11,34 +11,37 @@ const EmailCheck = ({
 }) => {
   return (
     <Query query={EMAIL_CHECK} variables={{ token: Number(token) }}>
-      {({ data: { getTokenCheck } }, loading) => {
-        const result = getTokenCheck;
+      {({ error, data, loading }) => {
         if (loading)
-          return (
-            <LoadingContainer>
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-              <div />
-            </LoadingContainer>
-          );
-
-        if (result) {
-          alert("회원가입이 완료되었습니다.");
-          push("/home/1");
+          if (loading)
+            return (
+              <Fragment>
+                <div />
+                <LoadingContainer>
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                  <div />
+                </LoadingContainer>
+              </Fragment>
+            );
+        console.log(data);
+        const getTokenCheck = data.getTokenCheck;
+        if (getTokenCheck) {
+          const { result, message } = getTokenCheck;
+          if (result) {
+            alert(message);
+            push("/home/1");
+          } else {
+            alert(message);
+            push("/login");
+          }
         }
         return <div />;
-        // if (getTokenCheck) {
-        //   console.log(getTokenCheck);
-        //   return <div />;
-        // } else {
-        //   console.log(getTokenCheck);
-        //   return <div />;
-        // }
       }}
     </Query>
   );

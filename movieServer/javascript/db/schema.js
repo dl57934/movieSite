@@ -7,3 +7,5 @@ export const UserSchema = mongoose.Schema({
   checkLogin: Boolean,
   token: Number
 });
+
+export const ReviewSchema = mongoose.Schema({});

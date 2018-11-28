@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { LOGIN } from "./loginQuries";
+import { SIGNIN } from "./loginQuries";
 import { Mutation } from "react-apollo";
 
 class Login extends Component {
@@ -12,9 +12,9 @@ class Login extends Component {
         <LoginInput id="id" />
         <Label>password</Label>
         <LoginInput password id="password" />
-        <Mutation mutation={LOGIN}>
-          {login => {
-            this.login = login;
+        <Mutation mutation={SIGNIN}>
+          {signIn => {
+            this.signIn = signIn;
             return (
               <CustomButton onClick={this._loginEvent}>Login</CustomButton>
             );
@@ -23,29 +23,36 @@ class Login extends Component {
       </LoginContainer>
     );
   }
-  _loginEvent = () => {
+  _loginEvent = async () => {
     const inputId = document.getElementById("id").value;
     const inputPassword = document.getElementById("password").value;
-    if (this._loginCheck(inputPassword)) {
-      const {
-        history: { push }
-      } = this.props;
 
-      this.login({
-        variables: {
-          id: inputId,
-          password: inputPassword
-        }
-      }).then(response => {
-        const {
-          data: { login }
-        } = response;
-        if (login) push("/");
-        alert("잘못된 아이디나 비밀번호를 입력하였습니다.");
-      });
+    const {
+      history: { push }
+    } = this.props;
+
+    const {
+      data: {
+        signIn: { message, result }
+      }
+    } = await this.signIn({
+      variables: {
+        id: inputId,
+        password: inputPassword
+      }
+    });
+    if (result) {
+      alert(message);
+      push("/home/1");
     } else {
-      alert("잘못된 아이디나 비밀번호를 입력하였습니다.");
+      alert(message);
     }
+    // if (result) {
+    //   alert(message);
+    //   push("/home/1");
+    // } else {
+    //   alert(message);
+    // }
   };
 
   _passwordCheck = password => {

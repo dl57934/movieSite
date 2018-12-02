@@ -1,7 +1,7 @@
 import { createTransport } from "nodemailer";
 import { UsersModel } from "../db/models";
 
-const signUp = async ({ id, password, name, token }) => {
+const signUp = async ({ id, password, name, token, salt }) => {
   console.log(token);
   if (await existEmailCheck(id)) {
     const user = new UsersModel({
@@ -9,8 +9,10 @@ const signUp = async ({ id, password, name, token }) => {
       password,
       name,
       token,
-      checkLogin: false
+      checkLogin: false,
+      salt
     });
+
     user.save();
     sendEmail(id, token);
     return { result: true, message: "상훈상훈 무비에 환영합니다." };

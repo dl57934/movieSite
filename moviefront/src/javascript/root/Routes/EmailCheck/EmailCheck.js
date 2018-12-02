@@ -9,6 +9,7 @@ const EmailCheck = ({
   },
   history: { push }
 }) => {
+  console.log(token);
   return (
     <Query query={EMAIL_CHECK} variables={{ token: Number(token) }}>
       {({ error, data, loading }) => {
@@ -29,7 +30,7 @@ const EmailCheck = ({
                 </LoadingContainer>
               </Fragment>
             );
-        console.log(data);
+
         const getTokenCheck = data.getTokenCheck;
         if (getTokenCheck) {
           const { result, message } = getTokenCheck;

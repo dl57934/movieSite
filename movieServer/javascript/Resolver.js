@@ -16,8 +16,8 @@ const resolvers = {
   },
   Mutation: {
     signIn: (_, { id, password }) => signIn({ id, password }),
-    signUp: (_, { id, password, name, token }) =>
-      signUp({ id, password, name, token })
+    signUp: (_, { id, password, name, token, salt }) =>
+      signUp({ id, password, name, token, salt })
   }
 };
 

@@ -12,6 +12,7 @@ type Mutation {
     password: String!
     name: String!
     token: Int!
+    salt: String!
   ): signResult!
   addMovies(rating: Float!, limit: Int!, page: Int): [movie]!
 }

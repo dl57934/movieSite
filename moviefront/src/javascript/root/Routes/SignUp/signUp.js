@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { SignUp } from "./signUpQueries";
 import { Mutation } from "react-apollo";
+import { pbkdf2Sync } from "crypto";
+import { sha256 } from "js-sha256";
 
 class signUp extends Component {
   render() {
@@ -23,7 +25,7 @@ class signUp extends Component {
           {SignUp => {
             this.requestSignUp = SignUp;
             return (
-              <CustomButton onClick={this._emailCheck} type="submit">
+              <CustomButton onClick={this._signUp} type="submit">
                 회원 가입
               </CustomButton>
             );
@@ -34,26 +36,41 @@ class signUp extends Component {
   }
 
   //8자리 이상 20자리 미만 최소 특수문자 한개 포함
-  _emailCheck = async () => {
+  _signUp = async () => {
+    console.log(password);
     const max = 999999;
     const min = 100000;
     const id = document.getElementById("inputId").value + "@pukyong.ac.kr";
     const password = document.getElementById("inputPw").value.toLowerCase();
     const name = document.getElementById("inputName").value;
+    let salt = this._makingSalt();
+    const hashedPasswordToBcrpyt = this._passwordHashing(password, salt);
+    console.log(hashedPasswordToBcrpyt);
     if (id !== "" && password !== "" && name !== "" && this._passwordCheck()) {
       let token = Math.floor(Math.random() * (max - min) + min);
       const {
         data: { signUp }
       } = await this.requestSignUp({
-        variables: { id, password, name, token }
+        variables: { id, password: hashedPasswordToBcrpyt, name, token, salt }
       });
       const {
         history: { push }
       } = this.props;
-      console.log(`결과 ${signUp}`);
       if (signUp.result) push(`/signUpComplete`);
       else alert(signUp.message);
-    } else alert("입력 창 또는 비밀번호가 같은지 확인해주세요");
+    } else alert("입력 창이 비어있는지 또는 비밀번호가 같은지 확인해주세요");
+  };
+  _passwordHashing = (password, salt) => {
+    const hashedPassword = sha256(password);
+    console.log(hashedPassword);
+    let hashedPasswordToBcrpyt = pbkdf2Sync(
+      hashedPassword,
+      salt,
+      100000,
+      64,
+      "sha512"
+    );
+    return hashedPasswordToBcrpyt.toString("base64");
   };
   _passwordCheck() {
     const password = document.getElementById("inputPw").value;
@@ -61,6 +78,9 @@ class signUp extends Component {
     if (password === rePassword) return true;
     return false;
   }
+  _makingSalt = () => {
+    return Math.round(new Date().valueOf() * Math.random()) + "";
+  };
 }
 
 const WarningMessage = styled.p`

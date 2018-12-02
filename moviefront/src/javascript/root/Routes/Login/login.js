@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { SIGNIN } from "./loginQuries";
 import { Mutation } from "react-apollo";
+import { sha256 } from "js-sha256";
 
 class Login extends Component {
   render() {
     return (
       <LoginContainer>
         <LoginTitle>Login</LoginTitle>
-        <Label placeholder="email입력">email</Label>
-        <LoginInput id="id" />
+        <Label placeholder="email입력">id</Label>
+        <span>
+          <EmailInput id="id" />
+          @pukyong.ac.kr
+        </span>
         <Label>password</Label>
         <LoginInput password id="password" />
         <Mutation mutation={SIGNIN}>
@@ -26,7 +30,8 @@ class Login extends Component {
   _loginEvent = async () => {
     const inputId = document.getElementById("id").value;
     const inputPassword = document.getElementById("password").value;
-
+    const hashedPassword = sha256(inputPassword);
+    console.log(hashedPassword);
     const {
       history: { push }
     } = this.props;
@@ -37,8 +42,8 @@ class Login extends Component {
       }
     } = await this.signIn({
       variables: {
-        id: inputId,
-        password: inputPassword
+        id: inputId + "@pukyong.ac.kr",
+        password: hashedPassword
       }
     });
     if (result) {
@@ -47,12 +52,6 @@ class Login extends Component {
     } else {
       alert(message);
     }
-    // if (result) {
-    //   alert(message);
-    //   push("/home/1");
-    // } else {
-    //   alert(message);
-    // }
   };
 
   _passwordCheck = password => {
@@ -67,11 +66,20 @@ const LoginInput = styled.input.attrs({
 })`
   margin: 30px 0;
   border-radius: 8px;
-  width: 25%;
+  width: 18%;
   height: 5%;
   font-size: 17px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+`;
+
+const EmailInput = styled(LoginInput)`
+  width: 40%;
+  padding: 3%;
+  font-weight: 600;
+  font-weight: 20px;
+  margin-right: 9px;
+  margin-left: 60px;
 `;
 
 const CustomButton = styled.button`
@@ -117,6 +125,7 @@ const CustomButton = styled.button`
 const Label = styled.h1`
   font-size: 20px;
   font-weight: 400;
+  margin-top: 15px;
 `;
 
 const LoginTitle = styled.h1`

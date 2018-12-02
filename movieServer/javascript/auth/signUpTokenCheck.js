@@ -1,7 +1,7 @@
 import { UsersModel } from "../db/models";
 const signUpTokenCheck = async ({ token }) => {
   let message;
-
+  console.log(token);
   let result = await UsersModel.findOne(
     { token: Number(token), checkLogin: false },
     (result, error) => {

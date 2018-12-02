@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { UsersModel } from "./models";
 
 export const UserSchema = mongoose.Schema({
   id: String,
@@ -7,6 +8,17 @@ export const UserSchema = mongoose.Schema({
   checkLogin: Boolean,
   token: Number,
   salt: String
+});
+
+UserSchema.static("findByToken", (token, callback) => {
+  return UsersModel.findOne(
+    { token: Number(token), checkLogin: false },
+    callback
+  );
+});
+
+UserSchema.static("findByEmail", async id => {
+  return await UsersModel.find({ id });
 });
 
 export const ReviewSchema = mongoose.Schema({

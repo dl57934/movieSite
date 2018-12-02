@@ -31,14 +31,13 @@ class Login extends Component {
     const inputId = document.getElementById("id").value;
     const inputPassword = document.getElementById("password").value;
     const hashedPassword = sha256(inputPassword);
-    console.log(hashedPassword);
     const {
       history: { push }
     } = this.props;
 
     const {
       data: {
-        signIn: { message, result }
+        signIn: { message, result, token }
       }
     } = await this.signIn({
       variables: {
@@ -47,6 +46,8 @@ class Login extends Component {
       }
     });
     if (result) {
+      console.log(token);
+      localStorage.setItem("jwt", token);
       alert(message);
       push("/home/1");
     } else {

@@ -22,16 +22,7 @@ const signUp = async ({ id, password, name, token, salt }) => {
 };
 
 const existEmailCheck = async id => {
-  let result;
-  await UsersModel.find({ id: id }, (err, results) => {
-    console.log(results);
-    if (results.length > 0) {
-      result = false;
-    } else {
-      result = true;
-    }
-  });
-  return result;
+  return (await UsersModel.find({ id: id })) == 0;
 };
 
 const sendEmail = (id, token) => {

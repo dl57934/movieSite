@@ -5,6 +5,7 @@ export const SIGNIN = gql`
     signIn(id: $id, password: $password) {
       message
       result
+      token
     }
   }
 `;

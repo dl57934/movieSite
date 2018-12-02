@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import styled from "styled-components";
 
 class HeaderApp extends Component {
@@ -8,15 +8,26 @@ class HeaderApp extends Component {
         <TitleName as="a" href="/home/1">
           상훈상훈 무비
         </TitleName>
-        <LoginSignUp as="a" href="/login" login>
-          로그인
-        </LoginSignUp>
-        <LoginSignUp as="a" href="/signUp">
-          회원가입
-        </LoginSignUp>
+        {!localStorage.getItem("jwt") ? (
+          <Fragment>
+            <LoginSignUp as="a" href="/login" login>
+              로그인
+            </LoginSignUp>
+            <LoginSignUp as="a" href="/signUp">
+              회원가입
+            </LoginSignUp>
+          </Fragment>
+        ) : (
+          <LoginSignUp as="button" onClick={this._logout}>
+            로그아웃
+          </LoginSignUp>
+        )}
       </HeaderCard>
     );
   }
+  _logout = () => {
+    localStorage.removeItem("jwt");
+  };
 }
 
 const TitleName = styled.h1`

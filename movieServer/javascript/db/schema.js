@@ -22,7 +22,7 @@ UserSchema.static("findByEmail", async id => {
 });
 
 export const ReviewSchema = mongoose.Schema({
-  id: { type: String, required: true },
+  movieId: { type: String, required: true },
   text: { type: String, trim: true, required: true, max: 100 },
   birth: { type: Date, default: Date.now },
   movieId: { type: String, required: true }

@@ -54,6 +54,5 @@ export const getMoviesuggestion = async ({ movie_id }) => {
 
 export const getReviewData = async ({ movie_id }) => {
   const array = await ReviewModel.findByMovieId(movie_id);
-  console.log(array);
   return array;
 };

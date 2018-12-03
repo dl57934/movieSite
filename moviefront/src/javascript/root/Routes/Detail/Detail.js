@@ -180,7 +180,11 @@ class Detail extends Component {
     const result = await this.addReview({
       variables: { text, token, movieId }
     });
-    window.location.reload();
+    if (result) window.location.reload();
+    else {
+      localStorage.removeItem("jwt");
+      alert("다시로그인 해주세요");
+    }
   };
 }
 

@@ -25,7 +25,7 @@ const signIn = async ({ id, password }) => {
       },
       "secret",
       {
-        expiresIn: "30s",
+        expiresIn: "1d",
         issuer: "dl57934",
         subject: "userInfo"
       }

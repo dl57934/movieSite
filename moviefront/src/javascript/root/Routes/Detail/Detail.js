@@ -34,7 +34,14 @@ const Paragraph = styled.span`
   }
 `;
 
-const ReviewCompleteButton = styled.button``;
+const ReviewCompleteButton = styled.button`
+  margin-left: 61%;
+  border-radius: 10px;
+  margin-top: 20px;
+  width: 120px;
+  height: 60px;
+  font-size: 15px;
+`;
 
 const SuggestionName = styled.h1`
   font-size: 30px;
@@ -62,8 +69,9 @@ const Line = styled.hr`
 
 const TextArea = styled.textarea`
   border-radius: 5px;
-  width: 30%;
-  height: 20%;
+  width: 60%;
+  height: 130px;
+  margin-left: 120px;
 `;
 
 class Detail extends Component {
@@ -120,6 +128,7 @@ class Detail extends Component {
               {localStorage.getItem("jwt") ? (
                 <Fragment>
                   <TextArea id="review" />
+                  <br />
                   <Mutation mutation={ADD_REVIEW}>
                     {addReview => {
                       this.addReview = addReview;

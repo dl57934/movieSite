@@ -37,7 +37,6 @@ const signIn = async ({ id, password }) => {
     result = false;
     message = "아이디 혹은 비밀번호를 확인하세요.";
   }
-  console.log("41: " + token);
   return { result, message, token };
 };
 

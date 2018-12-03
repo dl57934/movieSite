@@ -3,6 +3,7 @@ type Query {
   getDetailMovie(movie_id: Int): movie!
   getSuggestionMovie(movie_id: Int): [movie]!
   getTokenCheck(token: Int!): signResult!
+  getReviews(movie_id: Int!): returnReviews!
 }
 
 type Mutation {
@@ -15,6 +16,12 @@ type Mutation {
     salt: String!
   ): signResult!
   addMovies(rating: Float!, limit: Int!, page: Int): [movie]!
+  addReview(text: String, movieId: String, token: String): Boolean!
+}
+
+type returnReviews {
+  id: Int
+  review: String
 }
 
 type movie {

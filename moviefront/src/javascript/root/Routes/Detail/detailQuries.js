@@ -18,6 +18,16 @@ export const DETAIL_PAGE = id => gql`{
       }
       description_full
       genres
+    },
+    getReviews(movie_id:${id}){
+      review
+      id
     }
   }
   `;
+
+export const ADD_REVIEW = gql`
+  mutation addReview($text: String!, $token: String!, $movieId: String!) {
+    addReview(token: $token, text: $text, movieId: $movieId)
+  }
+`;

@@ -2,13 +2,14 @@ import React, { Fragment, Component } from "react";
 import { Query, Mutation } from "react-apollo";
 import { DETAIL_PAGE, ADD_REVIEW } from "./detailQuries";
 import Movie from "../../Components/Movie";
+import Review from "../../Components/Review";
 import styled from "styled-components";
 import LoadingContainer from "../../Components/Loading";
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 0.7fr);
-  justify-items: center;
+  justify-content: center;
   margin: 0 20px;
 `;
 
@@ -23,6 +24,11 @@ const Image = styled.div`
   margin-right: 60px;
 `;
 
+const InputReviewContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const Paragraph = styled.span`
   margin-bottom: 15px;
   display: block;
@@ -35,9 +41,8 @@ const Paragraph = styled.span`
 `;
 
 const ReviewCompleteButton = styled.button`
-  margin-left: 61%;
   border-radius: 10px;
-  margin-top: 20px;
+  margin: 80px 0 0 30px;
   width: 120px;
   height: 60px;
   font-size: 15px;
@@ -71,7 +76,8 @@ const TextArea = styled.textarea`
   border-radius: 5px;
   width: 60%;
   height: 130px;
-  margin-left: 120px;
+  font-size: 15px;
+  margin-bottom: 40px;
 `;
 
 class Detail extends Component {
@@ -126,13 +132,11 @@ class Detail extends Component {
               <SuggestionName>리뷰</SuggestionName>
               <Line />
               {localStorage.getItem("jwt") ? (
-                <Fragment>
+                <InputReviewContainer>
                   <TextArea id="review" />
-                  <br />
                   <Mutation mutation={ADD_REVIEW}>
                     {addReview => {
                       this.addReview = addReview;
-
                       return (
                         <ReviewCompleteButton onClick={this._setReviewEvent}>
                           등록하기
@@ -140,9 +144,17 @@ class Detail extends Component {
                       );
                     }}
                   </Mutation>
-                </Fragment>
+                </InputReviewContainer>
               ) : null}
-              }<SuggestionName>추천영화</SuggestionName>
+              <Line />
+              {data.getReviews.map(review => (
+                <Review
+                  movieId={review.movieId}
+                  birth={review.birth}
+                  text={review.text}
+                />
+              ))}
+              <SuggestionName>추천영화</SuggestionName>
               <Line />
               <Container>
                 {data.getSuggestionMovie.map(movie => (
@@ -168,7 +180,7 @@ class Detail extends Component {
     const result = await this.addReview({
       variables: { text, token, movieId }
     });
-    console.log(result);
+    window.location.reload();
   };
 }
 

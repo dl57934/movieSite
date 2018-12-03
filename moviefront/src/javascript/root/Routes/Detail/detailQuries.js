@@ -20,8 +20,9 @@ export const DETAIL_PAGE = id => gql`{
       genres
     },
     getReviews(movie_id:${id}){
-      review
-      id
+      text
+      movieId
+      birth
     }
   }
   `;

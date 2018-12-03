@@ -9,7 +9,6 @@ export const addReview = async ({ movieId, text, token }) => {
       console.log(decoded);
     }
   });
-  console.log("12" + result);
   if (result === undefined) {
     const review = new ReviewModel({
       movieId,
@@ -19,7 +18,6 @@ export const addReview = async ({ movieId, text, token }) => {
     review.save();
     return true;
   } else {
+    return false;
   }
-
-  return true;
 };

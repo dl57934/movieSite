@@ -61,6 +61,13 @@ const Title = styled.h1`
   color: white;
 `;
 
+const Page = styled.button`
+  color: white;
+  background-color: black;
+  margin-bottom: 40px;
+  float: center;
+`;
+
 const Second = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
@@ -89,6 +96,9 @@ class Detail extends Component {
       }
     } = props;
     this.movieId = movieId;
+    this.state = {
+      page: 1
+    };
   }
 
   render() {
@@ -110,6 +120,10 @@ class Detail extends Component {
               </CustomLoading>
             );
           const detailMovie = data.getDetailMovie;
+          const count = parseInt(data.getReviews.length / 5) + 1;
+          let pageArray = [];
+          for (let i = 1; i <= count; i++) pageArray.push(i);
+
           return (
             <Fragment>
               <SuggestionName>영화 상세 정보</SuggestionName>
@@ -147,25 +161,39 @@ class Detail extends Component {
                 </InputReviewContainer>
               ) : null}
               <Line />
-              {data.getReviews.map(review => (
-                <Review
-                  movieId={review.movieId}
-                  birth={review.birth}
-                  text={review.text}
-                />
+              {data.getReviews
+                .filter(
+                  (review, index) =>
+                    this.state.page * 5 >= index &&
+                    this.state.page * 5 - 4 <= index
+                )
+                .map(review => (
+                  <Review
+                    movieId={review.movieId}
+                    birth={review.birth}
+                    text={review.text}
+                  />
+                ))}
+              {pageArray.map(page => (
+                <Page onClick={this._changePage} name={page}>
+                  {" "}
+                  {page}{" "}
+                </Page>
               ))}
               <SuggestionName>추천영화</SuggestionName>
               <Line />
               <Container>
-                {data.getSuggestionMovie.map(movie => (
-                  <Movie
-                    key={movie.id}
-                    title={movie.title}
-                    poster={movie.medium_cover_image}
-                    id={movie.id}
-                    rating={movie.rating}
-                  />
-                ))}
+                {data.getSuggestionMovie.map((movie, index) => {
+                  return (
+                    <Movie
+                      key={movie.id}
+                      title={movie.title}
+                      poster={movie.medium_cover_image}
+                      id={movie.id}
+                      rating={movie.rating}
+                    />
+                  );
+                })}
               </Container>
             </Fragment>
           );
@@ -173,6 +201,13 @@ class Detail extends Component {
       </Query>
     );
   }
+  _changePage = e => {
+    this.setState({
+      page: e.target.name
+    });
+    console.log(this.state.page);
+    console.log(e.target.name);
+  };
   _setReviewEvent = async () => {
     const text = document.getElementById("review").value;
     const token = localStorage.getItem("jwt");

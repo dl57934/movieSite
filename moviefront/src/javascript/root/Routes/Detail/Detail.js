@@ -93,11 +93,14 @@ class Detail extends Component {
     const {
       match: {
         params: { movieId }
-      }
+      },
+      history: { push }
     } = props;
     this.movieId = movieId;
+    this.push = push;
     this.state = {
-      page: 1
+      page: 1,
+      reload: true
     };
   }
 
@@ -123,7 +126,6 @@ class Detail extends Component {
           const count = parseInt(data.getReviews.length / 5) + 1;
           let pageArray = [];
           for (let i = 1; i <= count; i++) pageArray.push(i);
-
           return (
             <Fragment>
               <SuggestionName>영화 상세 정보</SuggestionName>
@@ -136,8 +138,14 @@ class Detail extends Component {
                   </Paragraph>
                   <Paragraph bold>점수: {detailMovie.rating}</Paragraph>
                   <Paragraph>줄거리: {detailMovie.description_full}</Paragraph>
-                  {detailMovie.torrents.map(torrent => (
-                    <Paragraph removeUnderLine a as="a" href={torrent.url}>
+                  {detailMovie.torrents.map((torrent, index) => (
+                    <Paragraph
+                      removeUnderLine
+                      a
+                      as="a"
+                      href={torrent.url}
+                      key={index}
+                    >
                       다운로드 by Torrent({torrent.size}) {torrent.quality}{" "}
                     </Paragraph>
                   ))}
@@ -163,10 +171,11 @@ class Detail extends Component {
               <Line />
               {data.getReviews
                 .filter(
-                  (review, index) =>
-                    this.state.page * 5 >= index &&
-                    this.state.page * 5 - 4 <= index
+                  (reviews, index) =>
+                    index < this.state.page * 5 &&
+                    index >= this.state.page * 5 - 5
                 )
+                .sort((a, b) => b.birth - a.birth)
                 .map(review => (
                   <Review
                     movieId={review.movieId}
@@ -183,7 +192,7 @@ class Detail extends Component {
               <SuggestionName>추천영화</SuggestionName>
               <Line />
               <Container>
-                {data.getSuggestionMovie.map((movie, index) => {
+                {data.getSuggestionMovie.map(movie => {
                   return (
                     <Movie
                       key={movie.id}
@@ -205,8 +214,6 @@ class Detail extends Component {
     this.setState({
       page: e.target.name
     });
-    console.log(this.state.page);
-    console.log(e.target.name);
   };
   _setReviewEvent = async () => {
     const text = document.getElementById("review").value;
@@ -215,10 +222,15 @@ class Detail extends Component {
     const result = await this.addReview({
       variables: { text, token, movieId }
     });
-    if (result) window.location.reload();
-    else {
+
+    if (result.data.addReview) {
+      this.setState({
+        reload: true
+      });
+    } else {
       localStorage.removeItem("jwt");
       alert("다시로그인 해주세요");
+      this.push("/login");
     }
   };
 }

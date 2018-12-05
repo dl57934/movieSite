@@ -27,18 +27,21 @@ const Header = styled.p`
 const Birth = styled.h3`
   color: white;
   margin-left: 80%;
+  margin-top: 30px;
 `;
 
-const Review = ({ text, birth, movieId }) => (
-  <Fragment>
-    <ReviewContainer>
-      <Header>{movieId}</Header>
-      <br />
-      <Text>{text}</Text>
-      <Birth>{birth}</Birth>
-    </ReviewContainer>
-    <Line />
-  </Fragment>
-);
-
+const Review = ({ text, birth, movieId }) => {
+  const date = new Date(Number(birth));
+  return (
+    <Fragment>
+      <ReviewContainer>
+        <Header>{movieId}</Header>
+        <br />
+        <Text>{text}</Text>
+        <Birth>{date.toLocaleString()}</Birth>
+      </ReviewContainer>
+      <Line />
+    </Fragment>
+  );
+};
 export default Review;

@@ -1,16 +1,13 @@
 import gql from "graphql-tag";
+import { BASIC_MOVIE_FRAGMENT } from "../../fragment";
 
 export const DETAIL_PAGE = id => gql`{
     getSuggestionMovie(movie_id:${id}){
-      title
-      rating
-      id
+      ...NoteParts
       medium_cover_image
     },
     getDetailMovie(movie_id:${id}){
-      title
-      rating
-      medium_cover_image
+      ...NoteParts
       torrents{
         url
         quality
@@ -24,7 +21,9 @@ export const DETAIL_PAGE = id => gql`{
       movieId
       birth
     }
+    
   }
+  ${BASIC_MOVIE_FRAGMENT}
   `;
 
 export const ADD_REVIEW = gql`

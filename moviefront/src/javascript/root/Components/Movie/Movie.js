@@ -30,13 +30,13 @@ const Title = styled.div`
 
 const Movie = ({ title, id, rating, poster }) => {
   return (
-    <Link to={`/detail/${id}`}>
+    <a href={`/detail/${id}`}>
       <Card poster={poster}>
         <Title>
           {title}/{rating}
         </Title>
       </Card>
-    </Link>
+    </a>
   );
 };
 

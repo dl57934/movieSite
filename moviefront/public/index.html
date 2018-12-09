@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+      body {
+        overflow-x: hidden;
+        overflow-y: hidden;
+      }
+    </style>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script language="Javascript">
-      var popUrl = "../popup.html";
+      let widthSize = 820,
+        heightSize = 530;
+      const popUrl = "../popup.html";
       let img = new Image();
       img.src =
         "https://user-images.githubusercontent.com/23521909/49689663-abf58e00-fb67-11e8-9f5c-ffa614f5eab8.png";
-      console.log(img.width);
-      var popOption = `width=800, height=530, left=100, top=150,  scrollbars=no, status=no, fullscreen=no;`; //팝업창 옵션(optoin)
+
+      if (
+        navigator.userAgent.match("Chrome") ||
+        navigator.userAgent.match("Safari")
+      )
+        heightSize += 20;
+
+      const popOption = `width=${widthSize}, height=${heightSize}, left=100, top=150,  scrollbars=no, status=no, fullscreen=no;`;
       if (!document.cookie.match("jkcleanPopup")) {
         window.open(popUrl, "jk맑은피부과", popOption);
       }

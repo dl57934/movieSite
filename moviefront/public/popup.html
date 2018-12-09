@@ -1,91 +1,90 @@
-<link rel="icon" type="image/png" href="/images/favicon.ico" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>타이틀</title>
-<script language="JavaScript">
-  const setCookie = (name, value, expiredays) => {
-    var todayDate = new Date();
-    todayDate.setDate(todayDate.getDate() + expiredays);
-    document.cookie =
-      name +
-      "=" +
-      escape(value) +
-      "; path=/; expires=" +
-      todayDate.toGMTString() +
-      ";";
-  };
-
-  const closePop = () => {
-    if (document.frm.pop.checked) {
-      setCookie("jkcleanPopup", "done", 1);
-      setCookie("Popup", "done", 1);
+<html>
+  <style>
+    body {
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
-    self.close();
-  };
-  const itemClick = e => {
-    if (e.clientX < 475 && e.clientY < 500) {
-      console.log(e.clientY);
-      window.open(
-        "http://jkpureskin.com/%EA%B5%AC%EC%84%9C%EB%8F%99%EA%B8%B0%EB%AF%B8%EC%A0%9C%EA%B1%B0-%EB%A0%88%EB%B8%94%EB%9D%BC%EC%9D%B4%ED%8A%B8si/",
-        "",
-        "resizable=yes, scrollbars=yes, status=yes, fullscreen=yes;"
-      );
-    } else if (e.clientX <= 800 && e.clientY < 500) {
-      window.open(
-        "http://jkpureskin.com/%EB%89%B4%ED%85%8C%EB%9D%BC%EB%A6%AC%ED%94%84%ED%8C%85/",
-        "",
-        "resizable=yes, scrollbars=yes, status=yes, fullscreen=yes;"
-      );
-    }
-  };
-</script>
-<style type="text/css">
-  body {
-    margin-left: 0px;
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
-  }
-</style>
+  </style>
 
-<form name="frm" method="post" action="" onclick="itemClick(event)">
-  <table width="" border="0" cellpadding="0" cellspacing="0">
-    <tbody>
-      <tr>
-        <td>
-          <img
-            src="https://user-images.githubusercontent.com/23521909/49689663-abf58e00-fb67-11e8-9f5c-ffa614f5eab8.png"
-            width="800"
-            height="500"
-            border="0"
-          />
-        </td>
-      </tr>
-      <tr>
-        <td height="30" align="right" bgcolor="#000000">
-          <table border="0" cellpadding="0" cellspacing="2">
-            <tbody>
-              <tr>
-                <td>
-                  <input
-                    class="PopupCheck"
-                    type="checkbox"
-                    name="pop"
-                    onclick="closePop()"
-                  />
-                </td>
-                <td style="font-size:11px;color:#FFFFFF;">
-                  1일동안 이 창을 열지 않음
-                </td>
-                <td style="font-size:11px;">
-                  <a href="javascript:self.close();" onfocus="this.blur()"
-                    >[닫기]</a
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</form>
+  <link rel="icon" type="image/png" href="/images/favicon.ico" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>jk맑은파부과</title>
+  <script language="JavaScript">
+    const setCookie = (name, value, expiredays) => {
+      var todayDate = new Date();
+      todayDate.setDate(todayDate.getDate() + expiredays);
+      document.cookie =
+        name +
+        "=" +
+        escape(value) +
+        "; path=/; expires=" +
+        todayDate.toGMTString() +
+        ";";
+    };
+
+    const closePop = () => {
+      if (document.frm.pop.checked) {
+        setCookie("jkcleanPopup", "done", 1);
+      }
+      self.close();
+    };
+    const itemClick = e => {
+      if (e.clientX < 475 && e.clientY < 500) {
+        console.log(e.clientY);
+        window.open(
+          "http://jkpureskin.com/%EA%B5%AC%EC%84%9C%EB%8F%99%EA%B8%B0%EB%AF%B8%EC%A0%9C%EA%B1%B0-%EB%A0%88%EB%B8%94%EB%9D%BC%EC%9D%B4%ED%8A%B8si/",
+          "",
+          "resizable=yes, scrollbars=yes, status=yes, fullscreen=yes;"
+        );
+      } else if (e.clientX <= 800 && e.clientY < 500) {
+        window.open(
+          "http://jkpureskin.com/%EB%89%B4%ED%85%8C%EB%9D%BC%EB%A6%AC%ED%94%84%ED%8C%85/",
+          "",
+          "resizable=yes, scrollbars=yes, status=yes, fullscreen=yes;"
+        );
+      }
+    };
+  </script>
+  <body style="margin:0" onclick="itemClick(event)">
+    <table width="" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
+            <img
+              src="https://user-images.githubusercontent.com/23521909/49689663-abf58e00-fb67-11e8-9f5c-ffa614f5eab8.png"
+              width="800"
+              height="500"
+              border="0"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td height="30" align="right" bgcolor="#000000">
+            <table border="0" cellpadding="0" cellspacing="2">
+              <tbody>
+                <tr>
+                  <td>
+                    <input
+                      class="PopupCheck"
+                      type="checkbox"
+                      name="pop"
+                      onclick="closePop()"
+                    />
+                  </td>
+                  <td style="font-size:11px;color:#FFFFFF;">
+                    1일동안 이 창을 열지 않음
+                  </td>
+                  <td style="font-size:11px;">
+                    <a href="javascript:self.close();" onfocus="this.blur()"
+                      >[닫기]</a
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

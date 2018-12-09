@@ -4,11 +4,13 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script language="Javascript">
       var popUrl = "../popup.html";
-
-      var popOption =
-        "width=800, height=550, left=100, top=150,resizable=no, scrollbars=no, status=no, fullscreen=no, channelmode=yes, location=0;"; //팝업창 옵션(optoin)
+      let img = new Image();
+      img.src =
+        "https://user-images.githubusercontent.com/23521909/49689663-abf58e00-fb67-11e8-9f5c-ffa614f5eab8.png";
+      console.log(img.width);
+      var popOption = `width=800, height=530, left=100, top=150,  scrollbars=no, status=no, fullscreen=no;`; //팝업창 옵션(optoin)
       if (!document.cookie.match("jkcleanPopup")) {
-        window.open(popUrl, "", popOption);
+        window.open(popUrl, "jk맑은피부과", popOption);
       }
     </script>
     <meta charset="utf-8" />

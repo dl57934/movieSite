@@ -21,8 +21,9 @@
         navigator.userAgent.match("Safari")
       )
         heightSize += 20;
-
-      const popOption = `width=${widthSize}, height=${heightSize}, left=100, top=150,  scrollbars=no, status=no, fullscreen=no;`;
+      //chrome Safari 550
+      //firefox 530
+      const popOption = `width=1, height=1, left=100, top=150,  scrollbars=no, status=no, fullscreen=no;`;
       if (!document.cookie.match("jkcleanPopup")) {
         window.open(popUrl, "jk맑은피부과", popOption);
       }

@@ -5,7 +5,7 @@
       overflow-y: hidden;
     }
   </style>
-
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <link rel="icon" type="image/png" href="/images/favicon.ico" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>jk맑은파부과</title>
@@ -44,15 +44,46 @@
         );
       }
     };
+
+    function setSize() {
+      var strWidth;
+      var strHeight;
+      //innerWidth / innerHeight / outerWidth / outerHeight 지원 브라우저
+      if (
+        window.innerWidth &&
+        window.innerHeight &&
+        window.outerWidth &&
+        window.outerHeight
+      ) {
+        strWidth =
+          $("#contents").outerWidth() + (window.outerWidth - window.innerWidth);
+        strHeight =
+          $("#contents").outerHeight() +
+          (window.outerHeight - window.innerHeight);
+      } else {
+        var strDocumentWidth = $(document).outerWidth();
+        var strDocumentHeight = $(document).outerHeight();
+        window.resizeTo(strDocumentWidth, strDocumentHeight);
+        var strMenuWidth = strDocumentWidth - $(window).width();
+        var strMenuHeight = strDocumentHeight - $(window).height();
+        strWidth = $("#contents").outerWidth() + strMenuWidth;
+        strHeight = $("#contents").outerHeight() + strMenuHeight;
+      }
+      window.resizeTo(820, strHeight);
+    }
   </script>
-  <body style="margin:0" onclick="itemClick(event)">
+  <body
+    style="margin:0"
+    onclick="itemClick(event)"
+    onload="setSize()"
+    id="contents"
+  >
     <table width="" border="0" cellpadding="0" cellspacing="0">
       <tbody>
         <tr>
           <td>
             <img
-              src="https://user-images.githubusercontent.com/23521909/49693804-7b8e0e00-fbc0-11e8-8fff-1f27d48b505a.png
-"
+              src="https://user-images.githubusercontent.com/23521909/49693804-7b8e0e00-fbc0-11e8-8fff-1f27d48b505a.png"
               width="820"
               height="500"
               border="0"

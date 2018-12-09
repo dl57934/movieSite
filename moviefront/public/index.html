@@ -9,21 +9,15 @@
     </style>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script language="Javascript">
-      let widthSize = 820,
-        heightSize = 530;
       const popUrl = "../popup.html";
-      let img = new Image();
-      img.src =
-        "https://user-images.githubusercontent.com/23521909/49689663-abf58e00-fb67-11e8-9f5c-ffa614f5eab8.png";
-
-      if (
-        navigator.userAgent.match("Chrome") ||
-        navigator.userAgent.match("Safari")
-      )
-        heightSize += 20;
-      //chrome Safari 550
-      //firefox 530
-      const popOption = `width=1, height=1, left=100, top=150,  scrollbars=no, status=no, fullscreen=no;`;
+      var agent = navigator.userAgent.toLowerCase();
+      let popOption;
+      if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
+        console.log("hihi");
+        popOption = "width=900, height=553, left=100, top=150,  scrollbars=no, status=no, fullscreen=no, toolbar=no, location=no, menubar=no;";
+      }else{
+        popOption = "width=1, height=1, left=100, top=150,  scrollbars=no, status=no, fullscreen=no, toolbar=no, location=no, menubar=no;";
+      }
       if (!document.cookie.match("jkcleanPopup")) {
         window.open(popUrl, "jk맑은피부과", popOption);
       }

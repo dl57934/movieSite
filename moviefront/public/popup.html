@@ -23,7 +23,7 @@
     };
 
     function closePop(){
-      if (document.frm.pop.checked) {
+      if (document.getElementById("pop").checked) {
         setCookie("jkcleanPopup", "done", 1);
       }
       self.close();
@@ -52,6 +52,7 @@
     function setSize(){
       var userAgent=navigator.userAgent.toLowerCase();
       var browser;
+      console.log(userAgent);
       if(userAgent.indexOf('edge')>-1){
           window.resizeTo(820, 575);
       }else if(userAgent.indexOf('whale')>-1){
@@ -80,7 +81,8 @@
           strWidth = $("#contents").outerWidth() + strMenuWidth;
           strHeight = $("#contents").outerHeight() + strMenuHeight;
         }
-        window.resizeTo(830, strHeight);
+        if(userAgent.indexOf("macintosh")>-1)window.resizeTo(820, strHeight);
+        else window.resizeTo(830, strHeight);
     } else{
       var img = document.getElementById("mainImg");
       img.width=900;
@@ -123,7 +125,7 @@
                     <input
                       class="PopupCheck"
                       type="checkbox"
-                      name="pop"
+                      id="pop"
                       onclick="closePop()"
                     />
                   </td>

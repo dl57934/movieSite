@@ -1,27 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      body {
-        overflow-x: hidden;
-        overflow-y: hidden;
-      }
-    </style>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script language="Javascript">
-      const popUrl = "../popup.html";
-      var agent = navigator.userAgent.toLowerCase();
-      let popOption;
-      if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
-        console.log("hihi");
-        popOption = "width=900, height=553, left=100, top=150,  scrollbars=no, status=no, fullscreen=no, toolbar=no, location=no, menubar=no;";
-      }else{
-        popOption = "width=1, height=1, left=100, top=150,  scrollbars=no, status=no, fullscreen=no, toolbar=no, location=no, menubar=no;";
-      }
-      if (!document.cookie.match("jkcleanPopup")) {
-        window.open(popUrl, "jk맑은피부과", popOption);
-      }
-    </script>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta
